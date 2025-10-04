@@ -1,0 +1,518 @@
+<!DOCTYPE html> 
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Конфигуратор вездеходов</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f6f5ec;
+      color: #2b2a28;
+    }
+
+    .configurator {
+      max-width: 1100px;
+      margin: 40px auto;
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .sidebar {
+      width: 200px;
+      background: #2b2a28;
+      color: #f6f5ec;
+      padding: 20px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #ed7f1c;
+    }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      background: #3a3937;
+      border: none;
+      color: #f6f5ec;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sidebar button:hover,
+    .sidebar button.active {
+      background: #ed7f1c;
+      color: #2b2a28;
+      font-weight: bold;
+    }
+
+    .main {
+      flex: 1;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+    }
+
+    .card {
+      background: #f6f5ec;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.08);
+      
+    }
+
+    .preview {
+      flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* текст по левому краю */
+
+    }
+    .preview img {
+       display: block;
+  margin: 0 auto 15px auto; /* картинка по центру */
+  max-width: 100%;
+    }
+    .preview h2 {
+      margin-top: 0;
+      color: #2b2a28;
+      border-bottom: 2px solid #ed7f1c;
+      padding-bottom: 5px;
+    }
+
+    .options {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+ }
+.options-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  max-height: 600px;
+
+  /* Красивый скролл */
+  scrollbar-width: thin;
+  scrollbar-color: #ed7f1c #f6f5ec;
+}
+/* Для Chrome, Edge, Safari */
+.options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.options::-webkit-scrollbar-track {
+  background: #f6f5ec;
+  border-radius: 8px;
+}
+
+.options::-webkit-scrollbar-thumb {
+  background-color: #ed7f1c;
+  border-radius: 8px;
+  border: 2px solid #f6f5ec;
+}
+
+.options::-webkit-scrollbar-thumb:hover {
+  background-color: #d66f0c;
+}
+    .options h2 {
+      margin-top: 0;
+      color: #2b2a28;
+      border-bottom: 2px solid #ed7f1c;
+      padding-bottom: 5px;
+    }
+
+    details {
+      margin: 12px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    details:hover {
+      border-color: #ed7f1c;
+    }
+    summary {
+      cursor: pointer;
+      padding: 10px;
+      font-weight: bold;
+      background: #f0f0f0;
+      color: #2b2a28;
+    }
+
+    /* Стили опций */
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-top: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .option:first-of-type {
+      border-top: none;
+    }
+    .option:hover {
+      background: #f9f3e8;
+    }
+    .option.active {
+      background: #e9e6dd;
+      border-left: 4px solid #ed7f1c;
+    }
+
+    .option input[type="checkbox"] {
+      display: none;
+    }
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #2b2a28;
+      border-radius: 4px;
+      margin-right: 12px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .option input[type="checkbox"]:checked + .custom-checkbox {
+      background: #ed7f1c;
+      border-color: #ed7f1c;
+    }
+    .option input[type="checkbox"]:checked + .custom-checkbox::after {
+      content: "✓";
+      position: absolute;
+      left: 2px;
+      top: -1px;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .option .info {
+      flex: 1;
+    }
+    .option .info .name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #2b2a28;
+    }
+    .option .info .price {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ed7f1c;
+    }
+
+    .options-footer {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+    }
+    .options-footer .base {
+    font-size: 16px;
+    color: #2b2a28;
+    margin-bottom: 6px;
+  }
+  .options-footer .addons {
+    font-size: 16px;
+    color: #2b2a28;
+    margin-bottom: 10px;
+  }
+  .options-footer .divider {
+    border-top: 2px dashed #ccc;
+    margin: 10px 0;
+  }
+  .options-footer .total {
+    font-size: 20px;
+    color: #ed7f1c;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+@media (max-width: 768px) {
+     
+   .configurator {
+   
+  display: flex;
+  flex-direction: row; /* sidebar слева, main справа */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  min-width: 20%; /* чтобы не сжимался */
+  box-sizing: border-box;
+}
+
+/* Main */
+.main {
+  width: 100%;
+  min-width: 80%;
+  display: flex;
+  flex-direction: column; /* preview и options сверху вниз */
+  box-sizing: border-box;
+}
+
+/* Preview и Options занимают всю ширину main, но не вылезают */
+.preview,
+.options {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* padding учитывается в ширину */
+}
+ 
+
+  .options-list {
+    max-height: 300px;
+  }
+}
+.preview b {
+  display:  contents;
+}
+  </style>
+</head>
+<body>
+
+  <div class="configurator">
+
+    <div class="sidebar">
+      <h2>Модели</h2>
+      <button id="btn-finist" onclick="selectModel('finist')">ФИНИСТ</button>
+      <button id="btn-profi" onclick="selectModel('profi')">ФИНИСТ ПРО</button>
+      <button id="btn-pikap" onclick="selectModel('pikap')">ФИНИСТ Пикап</button>
+    </div>
+
+    <div class="main">
+      <div class="card preview" id="preview">
+        <h2>Выберите модель</h2>
+      </div>
+
+      <div class="card options" id="options">
+        <h2>Опции</h2>
+         <div class="options-list">
+        <p>Сначала выберите модель</p></div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const models = {
+    finist: {
+      name: "ФИНИСТ",
+      basePrice: 2360000,
+      img: "C:/Users/Наталья/Desktop/конфигуратор/_MG_1185-2.jpg.webp",
+      desc: `
+      <h2>Технические характеристики</h2>
+      <b> Мощность:</b> 109 л.с.,<br> 
+      <b>Категория прав:</b> А2.<br><br>
+       <h2>Базовая комплектация</h2>  
+       Стекло очиститель, стекло омыватель, двигатель Тойота 1NZ-FE. 
+       АКПП Тойота,отопитель салона Газель, передние раздвижные форточки, 
+       раздвижная форточка задней двери, автолин на полу, 
+       передние сиденья ВАЗ, шины «МАРШЛЭНД 1300*600, 
+       обшивка композитным материалом, 
+       гидрообьемное рулевое управление, дисковые тормоза,
+       светотехника, рессорная подвеска`,
+      options: {
+        "Электрооборудование": [
+          { name: "Дизельный автономный отопитель", price: 35000 },
+          { name: "Передние лебёдки 6000 lbs", price: 50000 },
+          { name: "Светодиодная балка 240 W", price: 14000 },
+          { name: "Внутрисалонное LED освещение", price: 7000 },
+          { name: "Боковой диодный свет", price: 8000 },
+          { name: "Камера заднего вида + монитор", price: 12000 }
+        ],
+        "Кузов": [
+          { name: "Фаркоп", price: 8000 },
+          { name: "Расширители колёсных арок", price: 12000 },
+          { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
+          { name: "Заднее спальное место", price: 20000 },
+          { name: "Отсекатель веток", price: 10000 },
+          { name: "Топливная канистра 15 л.", price: 4000 },
+          { name: "Обработка днища антикором", price: 20000 },
+          { name: "Подъёмники дверей (газовые)", price: 4000 },
+          { name: "Усиленный задний бампер", price: 4000 }
+        ],
+        "Трансмиссия": [
+          { name: "Полуоси усиленные (4 шт.)", price: 50000 },
+          { name: "Автоматическая блокировка осей", price: 50000 },
+          { name: "Принудительная блокировка осей", price: 50000 }
+        ],
+        "Оформление": [
+          { name: "Электронный ПСМ", price: 100000 }
+        ]
+      }
+    },
+    profi: {
+      name: "ФИНИСТ ПРО",
+      basePrice: 2695000,
+      img: "C:/Users/Наталья/Desktop/конфигуратор/_MG_9993.jpg.webp",
+      desc: "Д/Ш/В: 3,4/2,4/2,5 м<br>Вес: 1710 кг<br>Мощность: 109 л.с.",
+      options: {
+        "Электрооборудование": [
+          { name: "Дизельный автономный отопитель", price: 35000 },
+          { name: "Передние лебёдки 6000 lbs", price: 50000 },
+          { name: "Светодиодная балка 240 W", price: 14000 },
+          { name: "Внутрисалонное LED освещение", price: 7000 },
+          { name: "Боковой диодный свет", price: 8000 },
+          { name: "Камера заднего вида + монитор", price: 12000 }
+        ],
+        "Кузов": [
+          { name: "Фаркоп", price: 8000 },
+          { name: "Расширители колёсных арок", price: 12000 },
+          { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
+          { name: "Заднее спальное место", price: 20000 },
+          { name: "Отсекатель веток", price: 10000 },
+          { name: "Топливная канистра 15 л.", price: 4000 },
+          { name: "Обработка днища антикором", price: 20000 },
+          { name: "Подъёмники дверей (газовые)", price: 4000 },
+          { name: "Усиленный задний бампер", price: 4000 }
+        ],
+        "Трансмиссия": [
+          { name: "Полуоси усиленные (4 шт.)", price: 50000 },
+          { name: "Автоматическая блокировка осей", price: 50000 },
+          { name: "Принудительная блокировка осей", price: 50000 }
+        ],
+        "Оформление": [
+          { name: "Электронный ПСМ", price: 100000 }
+        ]
+      }
+    },
+     pikap: {
+      name: "ФИНИСТ Пикап",
+      basePrice: 2695000,
+      img: "C:/Users/Наталья/Desktop/конфигуратор/_MG_0058-2.jpg.webp",
+      desc: "Д/Ш/В: 3,4/2,4/2,5 м<br>Вес: 1710 кг<br>Мощность: 109 л.с.",
+      options: {
+        "Электрооборудование": [
+          { name: "Дизельный автономный отопитель", price: 35000 },
+          { name: "Передние лебёдки 6000 lbs", price: 50000 },
+          { name: "Светодиодная балка 240 W", price: 14000 },
+          { name: "Внутрисалонное LED освещение", price: 7000 },
+          { name: "Боковой диодный свет", price: 8000 },
+          { name: "Камера заднего вида + монитор", price: 12000 }
+        ],
+        "Кузов": [
+          { name: "Фаркоп", price: 8000 },
+          { name: "Расширители колёсных арок", price: 12000 },
+          { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
+          { name: "Заднее спальное место", price: 20000 },
+          { name: "Отсекатель веток", price: 10000 },
+          { name: "Топливная канистра 15 л.", price: 4000 },
+          { name: "Обработка днища антикором", price: 20000 },
+          { name: "Подъёмники дверей (газовые)", price: 4000 },
+          { name: "Усиленный задний бампер", price: 4000 }
+        ],
+        "Трансмиссия": [
+          { name: "Полуоси усиленные (4 шт.)", price: 50000 },
+          { name: "Автоматическая блокировка осей", price: 50000 },
+          { name: "Принудительная блокировка осей", price: 50000 }
+        ],
+        "Оформление": [
+          { name: "Электронный ПСМ", price: 100000 }
+        ]
+      }
+    }
+  };
+
+  let currentModel = null;
+
+  function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
+  function selectModel(key) {
+    document.querySelectorAll(".sidebar button").forEach(b => b.classList.remove("active"));
+    document.getElementById("btn-" + key).classList.add("active");
+
+    currentModel = models[key];
+    renderPreview();
+    renderOptions();
+  }
+
+  function renderPreview() {
+    const preview = document.getElementById("preview");
+    preview.innerHTML = `
+      <h2>${currentModel.name}</h2>
+      <img src="${currentModel.img}" alt="${currentModel.name}">
+      <p>${currentModel.desc}</p>
+    `;
+  }
+
+  function renderOptions() {
+    const optionsDiv = document.getElementById("options");
+
+    let list = optionsDiv.querySelector('.options-list');
+    if (!list) {
+      list = document.createElement('div');
+      list.className = 'options-list';
+      optionsDiv.appendChild(list);
+    }
+
+    list.innerHTML = '';
+
+    for (let category in currentModel.options) {
+      const details = document.createElement('details');
+      const summary = document.createElement('summary');
+      summary.textContent = category;
+      details.appendChild(summary);
+
+      currentModel.options[category].forEach(opt => {
+        const label = document.createElement('label');
+        label.className = 'option';
+        label.innerHTML = `
+          <input type="checkbox" value="${opt.price}" onchange="updateTotal()">
+          <span class="custom-checkbox"></span>
+          <div class="info">
+            <div class="name">${opt.name}</div>
+            <div class="price">${formatNumber(opt.price)} руб.</div>
+          </div>
+        `;
+        details.appendChild(label);
+      });
+
+      list.appendChild(details);
+    }
+
+    let footer = optionsDiv.querySelector('.options-footer');
+    if (!footer) {
+      footer = document.createElement('div');
+      footer.className = 'options-footer';
+      footer.innerHTML = `
+        <div class="base">Базовая цена: <span id="basePrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
+        <div class="addons">Дополнения: <span id="addonsPrice">0</span> руб.</div>
+        <div class="divider"></div>
+        <div class="total">Итого: <span id="totalPrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
+      `;
+      optionsDiv.appendChild(footer);
+    }
+
+    updateTotal();
+  }
+
+  function updateTotal() {
+    if (!currentModel) return;
+
+    const checkboxes = document.querySelectorAll('.option input[type="checkbox"]');
+    let addons = 0;
+    checkboxes.forEach(ch => {
+      if (ch.checked) addons += +ch.value;
+    });
+
+    const base = currentModel.basePrice;
+    const total = base + addons;
+
+    document.getElementById('addonsPrice').textContent = formatNumber(addons);
+    document.getElementById('totalPrice').textContent = formatNumber(total);
+  }
+</script>
+
+
+</body>
+</html>
