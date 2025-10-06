@@ -236,159 +236,120 @@
   }
  
 @media (max-width: 768px) {
+    .configurator {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
 
-  body {
-    background: #f6f5ec;
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
-  }
+    /* Заголовок и модели сверху */
+    .sidebar {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #2b2a28;
+        border-radius: 12px;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
 
-  .configurator {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    margin: 0;
-    border-radius: 0;
-    box-shadow: none;
-    width: 100%;
-    box-sizing: border-box;
-  }
+    .sidebar h2 {
+        display: block;
+        font-size: 16px;
+        color: #ed7f1c;
+        margin-bottom: 6px;
+        text-align: center;
+    }
 
-  /* Модели (sidebar) теперь сверху в виде горизонтального блока */
-  .sidebar {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    background: #2b2a28;
-    border-radius: 12px;
-    padding: 10px;
-    box-sizing: border-box;
-    scrollbar-width: none; /* скрыть скроллбар */
-  }
-  .sidebar::-webkit-scrollbar {
-    display: none;
-  }
+    .sidebar .buttons-container {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
 
-  .sidebar h2 {
-    display: none; /* скрываем заголовок для компактности */
-  }
+    .sidebar button {
+        flex: 0 0 auto;
+        font-size: 14px;
+        padding: 8px 12px;
+        background: #3a3937;
+        border-radius: 8px;
+        white-space: nowrap;
+        color: #f6f5ec;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
 
-  .sidebar button {
-    flex: 0 0 auto;
-    font-size: 15px;
-    padding: 10px 14px;
-    margin-right: 8px;
-    background: #3a3937;
-    border-radius: 8px;
-    white-space: nowrap;
-    width: 33%;
-  }
+    .sidebar button.active {
+        background: #ed7f1c;
+        color: #2b2a28;
+    }
 
-  .sidebar button.active {
-    background: #ed7f1c;
-    color: #2b2a28;
-  }
+    .main {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
 
-  /* Основная часть (preview + options) вертикальная */
-  .main {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px;
-  }
+    .card {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
 
-  .card {
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  }
+    .preview h2, .options h2 {
+        font-size: 18px;
+        text-align: center;
+    }
 
-  /* Preview */
-  .preview h2 {
-    font-size: 18px;
-    text-align: center;
-  }
+    .preview img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin: 10px 0;
+    }
 
-  .preview img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin: 10px 0;
-  }
+    .options-list {
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+    }
 
-  .preview p {
-    font-size: 15px;
-    line-height: 1.5;
-  }
+    details {
+        margin: 8px 0;
+    }
 
-  /* Options */
-  .options {
-    width: 100%;
-  }
+    summary {
+        font-size: 16px;
+        padding: 10px;
+    }
 
-  .options h2 {
-    font-size: 18px;
-    text-align: center;
-  }
+    .option {
+        padding: 10px;
+        font-size: 15px;
+    }
 
-  .options-list {
-    max-height: none;
-    overflow: visible;
-    padding: 0;
-  }
+    .options-footer {
+        font-size: 16px;
+        text-align: center;
+        margin-top: 20px;
+    }
 
-  details {
-    margin: 8px 0;
-  }
-
-  summary {
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  .option {
-    padding: 10px;
-    font-size: 15px;
-  }
-
-  .custom-checkbox {
-    width: 20px;
-    height: 20px;
-  }
-
-  .options-footer {
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  .options-footer .total {
-    font-size: 20px;
-    color: #ed7f1c;
-    font-weight: bold;
-  }
-
-  /* Кнопки и элементы клика большие и удобные */
-  button, summary, label.option {
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
-  }
-  .sidebar {
-  position: relative;
-  z-index: 10; /* чтобы была выше всех остальных элементов */
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.main {
-  position: relative;
-  z-index: 1;
-}
-}  </style>
+    .options-footer .total {
+        font-size: 20px;
+        color: #ed7f1c;
+        font-weight: bold;
+    }
+} </style>
 </head>
 <body>
 
@@ -396,9 +357,11 @@
 
     <div class="sidebar">
       <h2>Модели</h2>
+       <div class="buttons-container">
       <button id="btn-finist" onclick="selectModel('finist')">ФИНИСТ</button>
       <button id="btn-profi" onclick="selectModel('profi')">ФИНИСТ ПРО</button>
       <button id="btn-pikap" onclick="selectModel('pikap')">ФИНИСТ Пикап</button>
+       </div>
     </div>
 
     <div class="main">
@@ -630,6 +593,7 @@
 
 </body>
 </html>
+
 
 
 
