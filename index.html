@@ -74,12 +74,12 @@
       flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* текст по левому краю */
+  align-items: flex-start;  
 
     }
     .preview img {
        display: block;
-  margin: 0 auto 15px auto; /* картинка по центру */
+  margin: 0 auto 15px auto; 
   max-width: 100%;
     }
     .preview h2 {
@@ -99,12 +99,10 @@
   overflow-y: auto;
   padding-right: 10px;
   max-height: 600px;
-
-  /* Красивый скролл */
   scrollbar-width: thin;
   scrollbar-color: #ed7f1c #f6f5ec;
 }
-/* Для Chrome, Edge, Safari */
+
 .options::-webkit-scrollbar {
   width: 8px;
 }
@@ -149,7 +147,7 @@
       color: #2b2a28;
     }
 
-    /* Стили опций */
+     
     .option {
       display: flex;
       align-items: center;
@@ -247,7 +245,7 @@
         box-sizing: border-box;
     }
 
-    /* Заголовок и модели сверху */
+ 
     .sidebar {
         width: 100%;
         display: flex;
@@ -256,7 +254,6 @@
         border-radius: 12px;
         padding: 10px;
         box-sizing: border-box;
-        overflow-x: auto;
     }
 
     .sidebar h2 {
@@ -272,10 +269,30 @@
         gap: 8px;
         overflow-x: auto;
         padding-bottom: 6px;
+        scrollbar-width: thin;
+        scrollbar-color: #ed7f1c #2b2a28;
+    }
+
+    .sidebar .buttons-container::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .sidebar .buttons-container::-webkit-scrollbar-track {
+        background: #2b2a28;
+        border-radius: 8px;
+    }
+
+    .sidebar .buttons-container::-webkit-scrollbar-thumb {
+        background-color: #ed7f1c;
+        border-radius: 8px;
+        border: 2px solid #2b2a28;
+    }
+
+    .sidebar .buttons-container::-webkit-scrollbar-thumb:hover {
+        background-color: #d66f0c;
     }
 
     .sidebar button {
-      /* flex: 0 0 auto;*/
         font-size: 14px;
         padding: 8px 12px;
         background: #3a3937;
@@ -318,10 +335,32 @@
         margin: 10px 0;
     }
 
+  
     .options-list {
-        max-height: none;
-        overflow: visible;
-        padding: 0;
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: 10px;
+        scrollbar-width: thin;
+        scrollbar-color: #ed7f1c #f6f5ec;
+    }
+
+    .options-list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .options-list::-webkit-scrollbar-track {
+        background: #f6f5ec;
+        border-radius: 8px;
+    }
+
+    .options-list::-webkit-scrollbar-thumb {
+        background-color: #ed7f1c;
+        border-radius: 8px;
+        border: 2px solid #f6f5ec;
+    }
+
+    .options-list::-webkit-scrollbar-thumb:hover {
+        background-color: #d66f0c;
     }
 
     details {
@@ -349,7 +388,8 @@
         color: #ed7f1c;
         font-weight: bold;
     }
-} </style>
+}
+ </style>
 </head>
 <body>
 
@@ -594,6 +634,7 @@
 
 </body>
 </html>
+
 
 
 
