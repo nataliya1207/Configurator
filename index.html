@@ -632,20 +632,22 @@
         list.appendChild(details);
       }
 
-      let footer = optionsDiv.querySelector('.options-footer');
-      if (!footer) {
-        footer = document.createElement('div');
-        footer.className = 'options-footer';
-        footer.innerHTML = `
-        <div class="base">Базовая цена: <span id="basePrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
-        <div class="addons">Дополнения: <span id="addonsPrice">0</span> руб.</div>
-        <div class="divider"></div>
-        <div class="total">Итого: <span id="totalPrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
-      `;
-        optionsDiv.appendChild(footer);
-      }
+    let footer = optionsDiv.querySelector('.options-footer');
+if (!footer) {
+  footer = document.createElement('div');
+  footer.className = 'options-footer';
+  optionsDiv.appendChild(footer);
+}
 
-      updateTotal();
+ 
+footer.innerHTML = `
+  <div class="base">Базовая цена: <span id="basePrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
+  <div class="addons">Дополнения: <span id="addonsPrice">0</span> руб.</div>
+  <div class="divider"></div>
+  <div class="total">Итого: <span id="totalPrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
+`;
+
+updateTotal();
     }
 
     function updateTotal() {
@@ -670,4 +672,5 @@
 </body>
 
 </html>
+
 
