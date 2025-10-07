@@ -75,10 +75,9 @@
     }
 
     .preview {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: stretch;
 
     }
 
@@ -412,6 +411,83 @@
         font-weight: bold;
       }
     }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      align-self: center;
+    }
+
+    .slider img {
+      width: 100%;
+      display: none;
+      transition: opacity 0.4s ease;
+      border-radius: 12px;
+    }
+
+    .slider img.active {
+      display: block;
+    }
+
+    .slider button.prev,
+    .slider button.next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(43, 42, 40, 0.6);
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .slider button.prev:hover,
+    .slider button.next:hover {
+      background: #ed7f1c;
+    }
+
+    .slider button.prev {
+      left: 10px;
+    }
+
+    .slider button.next {
+      right: 10px;
+    }
+
+    .slider-dots {
+      text-align: center;
+      margin-top: 10px;
+      align-self: center;
+    }
+
+    .slider-dots .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .slider-dots .dot.active,
+    .slider-dots .dot:hover {
+      background: #ed7f1c;
+    }
+
+    .slider img {
+      cursor: grab;
+    }
+
+    .slider img:active {
+      cursor: grabbing;
+    }
   </style>
 </head>
 
@@ -448,7 +524,7 @@
       finist: {
         name: "ФИНИСТ",
         basePrice: 2300000,
-        img: "MG_1185-2.jpg.webp",
+        images: ["C:/Users/Наталья/Desktop/конфигуратор/img/finist/convertio.in_IMG_1298.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/finist/convertio.in_IMG_1299.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/finist/convertio.in_IMG_1300.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/finist/convertio.in_IMG_1301.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/finist/convertio.in_IMG_1302.webp"],
         desc: `
       <h2>Технические характеристики</h2>
       <b> Мощность:</b> 109 л.с.,<br> 
@@ -464,27 +540,35 @@
         options: {
           "Электрооборудование": [
             { name: "Дизельный автономный отопитель", price: 35000 },
-            { name: "Передние лебёдки 6000 lbs", price: 50000 },
-            { name: "Светодиодная балка 240 W", price: 14000 },
-            { name: "Внутрисалонное LED освещение", price: 7000 },
-            { name: "Боковой диодный свет", price: 8000 },
-            { name: "Камера заднего вида + монитор", price: 12000 }
+            { name: "Электро лебедка 6000 dbl 4000 кг", price: 54000 },
+            { name: "Быстросъемный механизм для крепления лебедки спереди и сзади", price: 15000 },
+            { name: "Задний диодный свет", price: 8000 },
+            { name: "Светодиодная балка 240 W", price: 17000 },
+            { name: "Внутрисалонное LED освещение", price: 10000 },
+            { name: "Боковой диодный свет", price: 10000 },
+            { name: "Камера заднего вида+монитор+ аудиоподготовка", price: 45000 }
           ],
           "Кузов": [
-            { name: "Фаркоп", price: 8000 },
-            { name: "Расширители колёсных арок", price: 12000 },
+            { name: "Фаркоп (квадрат/шар )", price: 8000 },
+            { name: "Расширители колесных арок ПНД", price: 15000 },
             { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
-            { name: "Заднее спальное место", price: 20000 },
-            { name: "Отсекатель веток", price: 10000 },
-            { name: "Топливная канистра 15 л.", price: 4000 },
-            { name: "Обработка днища антикором", price: 20000 },
-            { name: "Подъёмники дверей (газовые)", price: 4000 },
-            { name: "Усиленный задний бампер", price: 4000 }
+            { name: "Заднее спальное место(включая задние лавки)", price: 30000 },
+            { name: "Отсекатель веток", price: 7000 },
+            { name: "Дополнительная топливная канистра 15 л.", price: 10000 },
+            { name: "Обработка днища антикором", price: 23000 },
+            { name: "Подкачка шин выхлопными газами", price: 5000 },
+            { name: "Усиленный задний бампер", price: 10000 },
+            { name: "Откидные лобовые стекла Триплекс, 2 шт.", price: 53000 },
+            { name: "Обшивка салона с утеплением", price: 197000 },
+            { name: "Раздвижные форточки боковые в задней части кунга (2шт)", price: 30000 },
+            { name: "Люк в крыше (1шт)", price: 27000 },
+            { name: "Багажник экспедиционный", price: 30000 },
+            { name: "Лестница экспедиционная", price: 10000 }
           ],
           "Трансмиссия": [
-            { name: "Полуоси усиленные (4 шт.)", price: 50000 },
-            { name: "Автоматическая блокировка осей", price: 50000 },
-            { name: "Принудительная блокировка осей", price: 50000 }
+            { name: "Полуоси усиленные (4 шт.)", price: 55000 },
+            { name: "Принудительная блокировка электрическая передней оси(1шт)", price: 50000 },
+            { name: "Принудительная блокировка электрическая задней оси(1шт)", price: 50000 }
           ],
           "Оформление": [
             { name: "Электронный ПСМ", price: 100000 }
@@ -494,7 +578,7 @@
       profi: {
         name: "ФИНИСТ ПРО",
         basePrice: 2695000,
-        img: "MG_9993.jpg.webp",
+        images: ["C:/Users/Наталья/Desktop/конфигуратор/img/pro/convertio.in_IMG_1308.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pro/convertio.in_IMG_1309.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pro/convertio.in_IMG_1310.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pro/convertio.in_IMG_1311.webp"],
         desc: `
       <h2>Технические характеристики</h2>
       <b> Мощность:</b> 109 л.с.,<br> 
@@ -504,27 +588,34 @@
         options: {
           "Электрооборудование": [
             { name: "Дизельный автономный отопитель", price: 35000 },
-            { name: "Передние лебёдки 6000 lbs", price: 50000 },
-            { name: "Светодиодная балка 240 W", price: 14000 },
-            { name: "Внутрисалонное LED освещение", price: 7000 },
-            { name: "Боковой диодный свет", price: 8000 },
-            { name: "Камера заднего вида + монитор", price: 12000 }
+            { name: "Электро лебедка 6000 dbl 4000 кг", price: 54000 },
+            { name: "Быстросъемный механизм для крепления лебедки спереди и сзади", price: 15000 },
+            { name: "Задний диодный свет", price: 8000 },
+            { name: "Светодиодная балка 240 W", price: 17000 },
+            { name: "Внутрисалонное LED освещение", price: 10000 },
+            { name: "Боковой диодный свет", price: 10000 },
+            { name: "Камера заднего вида+монитор+ аудиоподготовка", price: 45000 }
           ],
           "Кузов": [
-            { name: "Фаркоп", price: 8000 },
-            { name: "Расширители колёсных арок", price: 12000 },
+            { name: "Фаркоп (квадрат/шар )", price: 8000 },
+            { name: "Расширители колесных арок ПНД", price: 15000 },
             { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
-            { name: "Заднее спальное место", price: 20000 },
-            { name: "Отсекатель веток", price: 10000 },
-            { name: "Топливная канистра 15 л.", price: 4000 },
-            { name: "Обработка днища антикором", price: 20000 },
-            { name: "Подъёмники дверей (газовые)", price: 4000 },
-            { name: "Усиленный задний бампер", price: 4000 }
+            { name: "Заднее спальное место(включая задние лавки)", price: 30000 },
+            { name: "Отсекатель веток", price: 7000 },
+            { name: "Дополнительная топливная канистра 15 л.", price: 10000 },
+            { name: "Обработка днища антикором", price: 23000 },
+            { name: "Подкачка шин выхлопными газами", price: 5000 },
+            { name: "Откидные лобовые стекла Триплекс, 2 шт.", price: 53000 },
+            { name: "Обшивка салона с утеплением", price: 197000 },
+            { name: "Раздвижные форточки боковые в задней части кунга (2шт)", price: 30000 },
+            { name: "Люк в крыше (1шт)", price: 27000 },
+            { name: "Багажник экспедиционный", price: 30000 },
+            { name: "Лестница экспедиционная", price: 10000 }
           ],
           "Трансмиссия": [
-            { name: "Полуоси усиленные (4 шт.)", price: 50000 },
-            { name: "Автоматическая блокировка осей", price: 50000 },
-            { name: "Принудительная блокировка осей", price: 50000 }
+            { name: "Полуоси усиленные (4 шт.)", price: 55000 },
+            { name: "Принудительная блокировка электрическая передней оси(1шт)", price: 50000 },
+            { name: "Принудительная блокировка электрическая задней оси(1шт)", price: 50000 }
           ],
           "Оформление": [
             { name: "Электронный ПСМ", price: 100000 }
@@ -534,7 +625,7 @@
       pikap: {
         name: "ФИНИСТ Пикап",
         basePrice: 2200000,
-        img: "MG_0058-2.jpg.webp",
+        images: ["C:/Users/Наталья/Desktop/конфигуратор/img/pikap/convertio.in_IMG_1303.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pikap/convertio.in_IMG_1304.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pikap/convertio.in_IMG_1305.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pikap/convertio.in_IMG_1306.webp", "C:/Users/Наталья/Desktop/конфигуратор/img/pikap/convertio.in_IMG_1307.webp"],
         desc: `
       <h2>Технические характеристики</h2>
       <b> Мощность:</b> 109 л.с.,<br> 
@@ -544,27 +635,35 @@
         options: {
           "Электрооборудование": [
             { name: "Дизельный автономный отопитель", price: 35000 },
-            { name: "Передние лебёдки 6000 lbs", price: 50000 },
-            { name: "Светодиодная балка 240 W", price: 14000 },
-            { name: "Внутрисалонное LED освещение", price: 7000 },
-            { name: "Боковой диодный свет", price: 8000 },
-            { name: "Камера заднего вида + монитор", price: 12000 }
+            { name: "Электро лебедка 6000 dbl 4000 кг", price: 54000 },
+            { name: "Быстросъемный механизм для крепления лебедки спереди и сзади", price: 15000 },
+            { name: "Задний диодный свет", price: 8000 },
+            { name: "Светодиодная балка 240 W", price: 17000 },
+            { name: "Внутрисалонное LED освещение", price: 10000 },
+            { name: "Боковой диодный свет", price: 10000 },
+            { name: "Камера заднего вида+монитор+ аудиоподготовка", price: 45000 }
           ],
           "Кузов": [
-            { name: "Фаркоп", price: 8000 },
-            { name: "Расширители колёсных арок", price: 12000 },
+            { name: "Фаркоп (квадрат/шар )", price: 8000 },
+            { name: "Расширители колесных арок ПНД", price: 15000 },
             { name: "Задние лавки со спинкой (2 шт.)", price: 20000 },
-            { name: "Заднее спальное место", price: 20000 },
-            { name: "Отсекатель веток", price: 10000 },
-            { name: "Топливная канистра 15 л.", price: 4000 },
-            { name: "Обработка днища антикором", price: 20000 },
-            { name: "Подъёмники дверей (газовые)", price: 4000 },
-            { name: "Усиленный задний бампер", price: 4000 }
+            { name: "Заднее спальное место(включая задние лавки)", price: 30000 },
+            { name: "Отсекатель веток", price: 7000 },
+            { name: "Дополнительная топливная канистра 15 л.", price: 10000 },
+            { name: "Обработка днища антикором", price: 23000 },
+            { name: "Подкачка шин выхлопными газами", price: 5000 },
+            { name: "Усиленный задний бампер", price: 10000 },
+            { name: "Откидные лобовые стекла Триплекс, 2 шт.", price: 53000 },
+            { name: "Обшивка салона с утеплением", price: 197000 },
+            { name: "Раздвижные форточки боковые в задней части кунга (2шт)", price: 30000 },
+            { name: "Люк в крыше (1шт)", price: 27000 },
+            { name: "Багажник экспедиционный", price: 30000 },
+            { name: "Лестница экспедиционная", price: 10000 }
           ],
           "Трансмиссия": [
-            { name: "Полуоси усиленные (4 шт.)", price: 50000 },
-            { name: "Автоматическая блокировка осей", price: 50000 },
-            { name: "Принудительная блокировка осей", price: 50000 }
+            { name: "Полуоси усиленные (4 шт.)", price: 55000 },
+            { name: "Принудительная блокировка электрическая передней оси(1шт)", price: 50000 },
+            { name: "Принудительная блокировка электрическая задней оси(1шт)", price: 50000 }
           ],
           "Оформление": [
             { name: "Электронный ПСМ", price: 100000 }
@@ -590,11 +689,23 @@
 
     function renderPreview() {
       const preview = document.getElementById("preview");
+      const imgs = currentModel.images.map(
+        (src, i) => `<img src="${src}" class="slide ${i === 0 ? "active" : ""}" alt="${currentModel.name}">`
+      ).join("");
+
       preview.innerHTML = `
-      <h2>${currentModel.name}</h2>
-      <img src="${currentModel.img}" alt="${currentModel.name}">
-      <p>${currentModel.desc}</p>
-    `;
+    <h2>${currentModel.name}</h2>
+    <div class="slider">
+      ${imgs}
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+    <div class="slider-dots">
+      ${currentModel.images.map((_, i) => `<span class="dot ${i === 0 ? "active" : ""}" onclick="goToSlide(${i})"></span>`).join("")}
+    </div>
+    <div class="desc">${currentModel.desc}</div>
+  `;
+      currentSlide = 0;
     }
 
     function renderOptions() {
@@ -632,22 +743,22 @@
         list.appendChild(details);
       }
 
-    let footer = optionsDiv.querySelector('.options-footer');
-if (!footer) {
-  footer = document.createElement('div');
-  footer.className = 'options-footer';
-  optionsDiv.appendChild(footer);
-}
+      let footer = optionsDiv.querySelector('.options-footer');
+      if (!footer) {
+        footer = document.createElement('div');
+        footer.className = 'options-footer';
+        optionsDiv.appendChild(footer);
+      }
 
- 
-footer.innerHTML = `
+
+      footer.innerHTML = `
   <div class="base">Базовая цена: <span id="basePrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
   <div class="addons">Дополнения: <span id="addonsPrice">0</span> руб.</div>
   <div class="divider"></div>
   <div class="total">Итого: <span id="totalPrice">${formatNumber(currentModel.basePrice)}</span> руб.</div>
 `;
 
-updateTotal();
+      updateTotal();
     }
 
     function updateTotal() {
@@ -665,12 +776,76 @@ updateTotal();
       document.getElementById('addonsPrice').textContent = formatNumber(addons);
       document.getElementById('totalPrice').textContent = formatNumber(total);
     }
+    let currentSlide = 0;
+
+    function changeSlide(n) {
+      showSlide(currentSlide + n);
+    }
+
+    function goToSlide(n) {
+      showSlide(n);
+    }
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll(".slide");
+      const dots = document.querySelectorAll(".dot");
+
+      if (slides.length === 0) return;
+
+      currentSlide = (n + slides.length) % slides.length; // зацикливание
+
+      slides.forEach((s, i) => s.classList.toggle("active", i === currentSlide));
+      dots.forEach((d, i) => d.classList.toggle("active", i === currentSlide));
+    }
     selectModel('finist');
+
+    let startX = 0;
+    let isDown = false;
+
+    const slider = document.querySelector('.slider');
+
+    slider.addEventListener("mousedown", (e) => {
+      isDown = true;
+      startX = e.clientX;
+      e.preventDefault(); // блокируем выделение
+    });
+
+    slider.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault(); // блокируем выделение при движении мыши
+    });
+
+    slider.addEventListener("mouseup", (e) => {
+      if (!isDown) return;
+      isDown = false;
+
+      const diff = e.clientX - startX;
+      if (Math.abs(diff) > 50) {
+        changeSlide(diff > 0 ? -1 : 1);
+      }
+    });
+
+    slider.addEventListener("mouseleave", () => {
+      isDown = false; // сброс, если мышь ушла за пределы слайдера
+    });
+
+    document.addEventListener("touchstart", (e) => {
+      const slider = e.target.closest(".slider");
+      if (!slider) return;
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener("touchend", (e) => {
+      if (!startX) return;
+      const diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 50) {
+        changeSlide(diff > 0 ? -1 : 1);
+      }
+      startX = 0;
+    });
   </script>
 
 
 </body>
 
 </html>
-
-
